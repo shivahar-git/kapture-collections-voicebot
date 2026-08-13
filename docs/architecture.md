@@ -1,53 +1,5 @@
 # Kapture Finance Collections Voicebot Architecture
 
-```mermaid
-flowchart LR
-
-    A[Customer]
-
-    B[Telephony / PSTN]
-
-    C[Vapi Voice Platform]
-
-    D[Deepgram STT]
-
-    E[Conversation State Controller]
-
-    F[LLM Orchestrator]
-
-    G{Tool Required?}
-
-    H[Webhook API / Mock Server]
-
-    I[(Customer and Call Data)]
-
-    J[ElevenLabs or Cartesia TTS]
-
-    K[Observability and Logs]
-
-    A --> B
-    B --> C
-
-    C --> D
-    D --> E
-    E --> F
-
-    F --> G
-
-    G -->|Yes| H
-    H --> I
-    H --> F
-
-    G -->|No| J
-
-    F --> J
-    J --> C
-
-    C --> B
-    B --> A
-
-    H --> K
-    E --> K
 
 The architecture, state enforcement, and latency targets follow the provided assignment reference. :contentReference[oaicite:1]{index=1} :contentReference[oaicite:2]{index=2}
 

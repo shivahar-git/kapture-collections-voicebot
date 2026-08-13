@@ -47,7 +47,6 @@ flowchart LR
     B --> A
 
     E -. Authentication State Lock .-> F
-
     H --> K
     E --> K
 

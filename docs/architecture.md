@@ -51,47 +51,6 @@ flowchart LR
     H --> K
     E --> K
 
-
-stateDiagram-v2
-
-    [*] --> INIT
-
-    INIT --> CONFIRM_PERSON
-
-    CONFIRM_PERSON --> AUTH_PENDING: Target confirmed
-
-    CONFIRM_PERSON --> CALL_ENDED: Wrong person
-
-    AUTH_PENDING --> AUTHENTICATED: verify_customer = true
-
-    AUTH_PENDING --> AUTH_PENDING: verification failed
-
-    AUTH_PENDING --> CALL_ENDED: repeated failure
-
-    AUTHENTICATED --> DISCLOSURE
-
-    DISCLOSURE --> NEGOTIATION
-
-    NEGOTIATION --> PTP: Will pay
-
-    NEGOTIATION --> ALREADY_PAID: Already paid
-
-    NEGOTIATION --> HARDSHIP: Cannot pay
-
-    NEGOTIATION --> DISPUTE: Disputes account
-
-    NEGOTIATION --> DNC: Do not call
-
-    PTP --> CALL_ENDED
-    ALREADY_PAID --> CALL_ENDED
-    HARDSHIP --> CALL_ENDED
-    DISPUTE --> CALL_ENDED
-    DNC --> CALL_ENDED
-
-    CALL_ENDED --> [*]
-
-
-
 The architecture, state enforcement, and latency targets follow the provided assignment reference. :contentReference[oaicite:1]{index=1} :contentReference[oaicite:2]{index=2}
 
 ---

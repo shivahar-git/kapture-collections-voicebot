@@ -46,8 +46,6 @@ flowchart LR
     C --> B
     B --> A
 
-    E --> F
-
     H --> K
     E --> K
 

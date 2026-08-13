@@ -1,1 +1,159 @@
-
+[
+  {
+    "type": "function",
+    "function": {
+      "name": "verify_customer",
+      "description": "Verify the identity of the target customer before any account, loan, EMI, overdue amount, or debt information is disclosed. This tool must be called after the customer provides the requested verification information. Do not reveal debt information unless the tool returns verified true.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "account_id": {
+            "type": "string",
+            "description": "The customer account ID."
+          },
+          "verification_code": {
+            "type": "string",
+            "description": "The verification value provided by the customer, such as the last four digits of PAN or birth year."
+          }
+        },
+        "required": [
+          "account_id",
+          "verification_code"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "log_promise_to_pay",
+      "description": "Log a customer's confirmed promise to pay. Call this only after the customer clearly agrees to a payment date and amount.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "account_id": {
+            "type": "string",
+            "description": "The customer account ID."
+          },
+          "ptp_date": {
+            "type": "string",
+            "description": "The agreed payment date in YYYY-MM-DD format."
+          },
+          "amount": {
+            "type": "number",
+            "description": "The amount the customer promised to pay."
+          }
+        },
+        "required": [
+          "account_id",
+          "ptp_date",
+          "amount"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "send_payment_link",
+      "description": "Send a payment link to the customer's registered mobile number using the selected channel.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "account_id": {
+            "type": "string",
+            "description": "The customer account ID."
+          },
+          "channel": {
+            "type": "string",
+            "enum": [
+              "SMS",
+              "WhatsApp",
+              "BOTH"
+            ],
+            "description": "The channel through which the payment link should be sent."
+          }
+        },
+        "required": [
+          "account_id",
+          "channel"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "escalate_to_agent",
+      "description": "Escalate the conversation to a human collections or resolution agent when the customer disputes the debt, reports hardship, requests a specialized resolution, or the automated agent cannot safely resolve the issue.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "account_id": {
+            "type": "string",
+            "description": "The customer account ID."
+          },
+          "reason": {
+            "type": "string",
+            "enum": [
+              "DISPUTE",
+              "HARDSHIP",
+              "CUSTOMER_REQUEST",
+              "TOOL_FAILURE",
+              "OTHER"
+            ],
+            "description": "The reason for escalation."
+          },
+          "notes": {
+            "type": "string",
+            "description": "A short summary of the customer's request or issue."
+          }
+        },
+        "required": [
+          "account_id",
+          "reason"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "mark_disposition",
+      "description": "Record the final or current outcome of the call. This should be called before ending the call whenever possible.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "account_id": {
+            "type": "string",
+            "description": "The customer account ID."
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "PTP_AGREED",
+              "ALREADY_PAID",
+              "DISPUTED",
+              "HARDSHIP_ESCALATED",
+              "WRONG_PERSON",
+              "DO_NOT_CALL",
+              "NO_RESPONSE",
+              "AUTH_FAILED",
+              "CALLBACK_REQUESTED",
+              "ESCALATED"
+            ],
+            "description": "The final call disposition."
+          },
+          "notes": {
+            "type": "string",
+            "description": "Optional short notes about the outcome."
+          }
+        },
+        "required": [
+          "account_id",
+          "status"
+        ]
+      }
+    }
+  }
+]
